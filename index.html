@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Abdullah Emad Eldeen</title>
+<style>
+  :root{--bg:#0a0a0f;--surface:#13131a;--card:#1a1a25;--accent:#6c63ff;--accent2:#00d4ff;--text:#f0f0f8;--muted:#8888aa;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;overflow-x:hidden;}
+
+  /* NAV */
+  nav{position:fixed;top:0;width:100%;z-index:100;padding:1.2rem 2rem;display:flex;justify-content:space-between;align-items:center;background:rgba(10,10,15,.85);backdrop-filter:blur(12px);border-bottom:1px solid rgba(108,99,255,.15);}
+  .logo{font-size:1.1rem;font-weight:700;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .nav-links{display:flex;gap:2rem;list-style:none;}
+  .nav-links a{color:var(--muted);text-decoration:none;font-size:.9rem;letter-spacing:.05em;transition:.3s;}
+  .nav-links a:hover{color:var(--accent2);}
+
+  /* HERO */
+  #hero{min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:6rem 2rem 4rem;position:relative;overflow:hidden;}
+  .hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(108,99,255,.18) 0%,transparent 70%),radial-gradient(ellipse 50% 40% at 80% 80%,rgba(0,212,255,.1) 0%,transparent 60%);}
+  .grid-overlay{position:absolute;inset:0;background-image:linear-gradient(rgba(108,99,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(108,99,255,.04) 1px,transparent 1px);background-size:50px 50px;}
+  .hero-content{position:relative;z-index:1;}
+  .badge{display:inline-block;padding:.35rem 1rem;border:1px solid var(--accent);border-radius:999px;font-size:.78rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;margin-bottom:1.5rem;animation:fadeUp .8s ease both;}
+  h1{font-size:clamp(2.8rem,7vw,5.5rem);font-weight:800;line-height:1.05;margin-bottom:1rem;animation:fadeUp .9s .1s ease both;}
+  .gradient-text{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+  .hero-sub{font-size:1.1rem;color:var(--muted);max-width:560px;margin:0 auto 2.5rem;line-height:1.7;animation:fadeUp 1s .2s ease both;}
+  .hero-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeUp 1s .3s ease both;}
+  .btn{padding:.8rem 2rem;border-radius:8px;font-size:.95rem;font-weight:600;text-decoration:none;transition:.3s;cursor:pointer;border:none;}
+  .btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;}
+  .btn-primary:hover{opacity:.85;transform:translateY(-2px);}
+  .btn-outline{border:1px solid var(--accent);color:var(--accent);background:transparent;}
+  .btn-outline:hover{background:rgba(108,99,255,.1);transform:translateY(-2px);}
+
+  /* SECTIONS */
+  section{padding:6rem 2rem;}
+  .container{max-width:1100px;margin:0 auto;}
+  .section-label{font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;color:var(--accent2);margin-bottom:.75rem;}
+  .section-title{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;margin-bottom:1rem;}
+  .section-divider{width:60px;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;margin-bottom:3rem;}
+
+  /* ABOUT */
+  #about{background:var(--surface);}
+  .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;}
+  .about-text p{color:var(--muted);line-height:1.8;margin-bottom:1rem;font-size:.97rem;}
+  .info-row{display:flex;gap:.6rem;align-items:center;margin-bottom:.75rem;font-size:.9rem;}
+  .info-row span.label{color:var(--accent);font-weight:600;min-width:80px;}
+  .info-row a{color:var(--accent2);text-decoration:none;}
+  .info-row a:hover{text-decoration:underline;}
+  .skills-block{margin-top:2rem;}
+  .skills-block h4{font-size:.85rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.9rem;}
+  .tags{display:flex;flex-wrap:wrap;gap:.5rem;}
+  .tag{padding:.3rem .8rem;border-radius:6px;font-size:.8rem;background:rgba(108,99,255,.12);border:1px solid rgba(108,99,255,.25);color:var(--text);}
+  .lang-flags{display:flex;gap:.8rem;margin-top:.5rem;}
+  .lang{display:flex;align-items:center;gap:.4rem;font-size:.85rem;color:var(--muted);}
+
+  /* PROJECTS */
+  .projects-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;}
+  .project-card{background:var(--card);border:1px solid rgba(108,99,255,.15);border-radius:16px;padding:2rem;transition:.3s;position:relative;overflow:hidden;}
+  .project-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(108,99,255,.06),transparent);opacity:0;transition:.3s;}
+  .project-card:hover{border-color:rgba(108,99,255,.45);transform:translateY(-4px);}
+  .project-card:hover::before{opacity:1;}
+  .project-icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-size:1.4rem;margin-bottom:1.2rem;}
+  .project-date{font-size:.75rem;color:var(--accent2);letter-spacing:.08em;margin-bottom:.5rem;}
+  .project-card h3{font-size:1.1rem;margin-bottom:.75rem;}
+  .project-card p{color:var(--muted);font-size:.88rem;line-height:1.7;}
+  .project-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1rem;}
+  .ptag{padding:.2rem .65rem;border-radius:4px;font-size:.75rem;background:rgba(0,212,255,.1);border:1px solid rgba(0,212,255,.2);color:var(--accent2);}
+
+  /* COURSES */
+  #courses{background:var(--surface);}
+  .courses-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1.5rem;}
+  .course-card{background:var(--card);border:1px solid rgba(108,99,255,.15);border-radius:14px;padding:1.6rem;transition:.3s;display:flex;flex-direction:column;gap:.6rem;}
+  .course-card:hover{border-color:rgba(108,99,255,.4);transform:translateY(-3px);}
+  .course-platform{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);}
+  .course-card h3{font-size:.97rem;font-weight:700;line-height:1.4;}
+  .course-card p{color:var(--muted);font-size:.83rem;line-height:1.6;flex:1;}
+  .course-date{font-size:.75rem;color:var(--muted);margin-top:.3rem;}
+
+  /* CONTACT */
+  .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;}
+  .contact-left p{color:var(--muted);line-height:1.8;margin-bottom:2rem;}
+  .contact-links{display:flex;flex-direction:column;gap:1rem;}
+  .contact-link{display:flex;align-items:center;gap:.9rem;padding:1rem 1.2rem;background:var(--card);border:1px solid rgba(108,99,255,.15);border-radius:12px;text-decoration:none;color:var(--text);transition:.3s;}
+  .contact-link:hover{border-color:var(--accent);transform:translateX(4px);}
+  .contact-link .icon{font-size:1.3rem;}
+  .contact-link .detail{font-size:.85rem;color:var(--muted);}
+  .contact-link .val{font-size:.95rem;font-weight:600;}
+  .contact-right{background:var(--card);border:1px solid rgba(108,99,255,.15);border-radius:16px;padding:2rem;}
+  .contact-right h3{margin-bottom:1.5rem;font-size:1.1rem;}
+  .field{margin-bottom:1rem;}
+  .field label{display:block;font-size:.8rem;color:var(--muted);margin-bottom:.4rem;letter-spacing:.05em;}
+  .field input,.field textarea{width:100%;background:var(--surface);border:1px solid rgba(108,99,255,.2);border-radius:8px;padding:.75rem 1rem;color:var(--text);font-size:.9rem;outline:none;transition:.3s;font-family:inherit;}
+  .field input:focus,.field textarea:focus{border-color:var(--accent);}
+  .field textarea{resize:vertical;min-height:110px;}
+
+  /* FOOTER */
+  footer{text-align:center;padding:2rem;border-top:1px solid rgba(108,99,255,.1);color:var(--muted);font-size:.82rem;}
+
+  /* ANIMATIONS */
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
+  .reveal{opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+
+  /* RESPONSIVE */
+  @media(max-width:700px){
+    .about-grid,.contact-grid{grid-template-columns:1fr;}
+    .nav-links{gap:1rem;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">AEE.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#courses">Courses</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="grid-overlay"></div>
+  <div class="hero-content">
+    <div class="badge">Open to AI/ML Opportunities</div>
+    <h1>Abdullah<br><span class="gradient-text">Emad Eldeen</span></h1>
+    <p class="hero-sub">AI & IoT Engineering Student · Intelligent Systems · Machine Learning · Deep Learning · Embedded Systems</p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">Who I Am</div>
+    <h2 class="section-title">About Me</h2>
+    <div class="section-divider"></div>
+    <div class="about-grid reveal">
+      <div class="about-text">
+        <p>Artificial Intelligence undergraduate at the <strong>Faculty of Artificial Intelligence, Menoufia University</strong>, specializing in Intelligent Systems. I have a strong academic foundation across Machine Learning, Deep Learning, Embedded Systems, and IoT.</p>
+        <p>I'm actively seeking an opportunity to apply my technical knowledge in a professional AI/ML environment — building systems that are smart, efficient, and impactful.</p>
+        <div style="margin-top:1.5rem;">
+          <div class="info-row"><span class="label">📍 Location</span> Cairo, Egypt</div>
+          <div class="info-row"><span class="label">🎓 University</span> Menoufia University (Expected 2027)</div>
+          <div class="info-row"><span class="label">✉️ Email</span> <a href="mailto:abdallahemad811@yahoo.com">abdallahemad811@yahoo.com</a></div>
+          <div class="info-row"><span class="label">💼 LinkedIn</span> <a href="https://www.linkedin.com/in/abdullah-emad-a163b72a5" target="_blank">abdullah-emad</a></div>
+          <div class="info-row"><span class="label">🐙 GitHub</span> <a href="https://github.com/AbdullahEmadeldeen" target="_blank">AbdullahEmadeldeen</a></div>
+        </div>
+        <div class="lang-flags" style="margin-top:1.2rem;">
+          <div class="lang">🇸🇦 Arabic</div>
+          <div class="lang">🇬🇧 English</div>
+          <div class="lang">🇩🇪 Deutsch</div>
+        </div>
+      </div>
+      <div>
+        <div class="skills-block">
+          <h4>Programming</h4>
+          <div class="tags">
+            <span class="tag">Python</span><span class="tag">C++</span><span class="tag">C</span>
+          </div>
+        </div>
+        <div class="skills-block">
+          <h4>Embedded & IoT</h4>
+          <div class="tags">
+            <span class="tag">Arduino</span><span class="tag">Microcontrollers</span><span class="tag">TinyML</span>
+          </div>
+        </div>
+        <div class="skills-block">
+          <h4>Artificial Intelligence</h4>
+          <div class="tags">
+            <span class="tag">Machine Learning</span><span class="tag">Deep Learning</span><span class="tag">Computer Vision</span><span class="tag">LLMs</span><span class="tag">Model Evaluation</span>
+          </div>
+        </div>
+        <div class="skills-block">
+          <h4>Frameworks & Libraries</h4>
+          <div class="tags">
+            <span class="tag">TensorFlow</span><span class="tag">PyTorch</span><span class="tag">NumPy</span><span class="tag">Pandas</span><span class="tag">OpenCV</span><span class="tag">YOLO</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">What I've Built</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="section-divider"></div>
+    <div class="projects-grid">
+      <div class="project-card reveal">
+        <div class="project-icon">🤟</div>
+        <div class="project-date">Jan 2026</div>
+        <h3>Sign Language Hand Recognition</h3>
+        <p>A Real-Time ASL Alphabet Recognition System that uses computer vision and deep learning to translate hand signs into text. Leverages MediaPipe for robust hand tracking and a custom-trained TensorFlow/Keras model for classification.</p>
+        <div class="project-tags">
+          <span class="ptag">Computer Vision</span><span class="ptag">MediaPipe</span><span class="ptag">TensorFlow</span><span class="ptag">Keras</span>
+        </div>
+      </div>
+      <div class="project-card reveal">
+        <div class="project-icon">🎭</div>
+        <div class="project-date">Jan 2026</div>
+        <h3>Celebrity Face Classification</h3>
+        <p>A full-stack application that detects and recognizes celebrity faces using deep learning. Combines FastAPI for the backend with FaceNet + ArcFace for high-accuracy face recognition, and a modern HTML/JS frontend for interaction.</p>
+        <div class="project-tags">
+          <span class="ptag">FaceNet</span><span class="ptag">ArcFace</span><span class="ptag">FastAPI</span><span class="ptag">Deep Learning</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSES -->
+<section id="courses">
+  <div class="container">
+    <div class="section-label">Continuous Learning</div>
+    <h2 class="section-title">Certifications & Courses</h2>
+    <div class="section-divider"></div>
+    <div class="courses-grid">
+
+      <div class="course-card reveal">
+        <div class="course-platform">IBM · Coursera</div>
+        <h3>Generative AI Engineering with LLMs</h3>
+        <p>Covers the engineering side of building generative AI applications using Large Language Models — prompt engineering, fine-tuning, RAG pipelines, and deploying LLM-powered solutions in real-world environments.</p>
+        <div class="course-date">📅 March 2026</div>
+      </div>
+
+      <div class="course-card reveal">
+        <div class="course-platform">Google · Coursera</div>
+        <h3>Preparing for Google Cloud ML Engineer Certification</h3>
+        <p>Focused on building, deploying, and managing ML models on Google Cloud Platform — covering Vertex AI, data pipelines, model monitoring, and best practices for production ML systems.</p>
+        <div class="course-date">📅 September 2025</div>
+      </div>
+
+      <div class="course-card reveal">
+        <div class="course-platform">IBM · Coursera</div>
+        <h3>Deep Learning with PyTorch</h3>
+        <p>Hands-on deep learning using PyTorch — covering neural network architectures, CNNs, RNNs, training pipelines, and model optimization techniques for building robust AI models.</p>
+        <div class="course-date">📅 IBM / Coursera</div>
+      </div>
+
+      <div class="course-card reveal">
+        <div class="course-platform">Harvard · edX</div>
+        <h3>Fundamentals of TinyML</h3>
+        <p>Explores deploying machine learning on microcontrollers and edge devices — covering model compression, quantization, and running inference on constrained hardware like Arduino and similar platforms.</p>
+        <div class="course-date">📅 Harvard University</div>
+      </div>
+
+      <div class="course-card reveal">
+        <div class="course-platform">Harvard · edX</div>
+        <h3>TinyML 2: Applications of TinyML</h3>
+        <p>Advanced course building on TinyML fundamentals — applying ML models to real-world applications such as keyword spotting, gesture recognition, and anomaly detection on edge devices.</p>
+        <div class="course-date">📅 Harvard University</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Let's Connect</div>
+    <h2 class="section-title">Get in Touch</h2>
+    <div class="section-divider"></div>
+    <div class="contact-grid reveal">
+      <div class="contact-left">
+        <p>I'm actively seeking AI/ML internships and opportunities. Whether you have a project, a role, or just want to connect — feel free to reach out!</p>
+        <div class="contact-links">
+          <a href="mailto:abdallahemad811@yahoo.com" class="contact-link">
+            <span class="icon">✉️</span>
+            <div><div class="detail">Email</div><div class="val">abdallahemad811@yahoo.com</div></div>
+          </a>
+          <a href="https://www.linkedin.com/in/abdullah-emad-a163b72a5" target="_blank" class="contact-link">
+            <span class="icon">💼</span>
+            <div><div class="detail">LinkedIn</div><div class="val">abdullah-emad-a163b72a5</div></div>
+          </a>
+          <a href="https://github.com/AbdullahEmadeldeen" target="_blank" class="contact-link">
+            <span class="icon">🐙</span>
+            <div><div class="detail">GitHub</div><div class="val">AbdullahEmadeldeen</div></div>
+          </a>
+          <a href="tel:01289332092" class="contact-link">
+            <span class="icon">📞</span>
+            <div><div class="detail">Phone</div><div class="val">01289332092</div></div>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <h3>Send a Message</h3>
+        <div class="field"><label>YOUR NAME</label><input type="text" placeholder="e.g. Ahmed Hassan"/></div>
+        <div class="field"><label>EMAIL</label><input type="email" placeholder="your@email.com"/></div>
+        <div class="field"><label>MESSAGE</label><textarea placeholder="Hi Abdullah, I'd like to…"></textarea></div>
+        <a href="mailto:abdallahemad811@yahoo.com" class="btn btn-primary" style="display:inline-block;margin-top:.5rem;text-align:center;width:100%;">Send Message</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Designed & built with ❤️ · Abdullah Emad Eldeen © 2026</p>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+  },{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
